@@ -1,0 +1,57 @@
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[DebugChecksum]
+Checksum=506642040
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[struct_types]
+Fmt0=aes_ctrl_blk_t-allowSignCmd	4	0
+Fmt1=aes_ctrl_blk_t-imageLen	4	0
+Fmt2=ublMetaData_t-chkMD	4	0
+Fmt3=ublMetaData_t-cntDnForced	4	0
+Fmt4=ublMetaData_t-cntDnSecKey	4	0
+Fmt5=ublMetaData_t-crcRC	4	0
+Fmt6=ublMetaData_t-crcShdw	4	0
+Fmt7=ublMetaData_t-dlyJmp	4	0
+Fmt8=ublMetaData_t-gpioPort	4	0
+[array_types]
+Fmt0=uint16 [2]	4	0
+Fmt1=uint8 [16]	4	0
+Fmt2=uint8 [1]	4	0
+Fmt3=uint8 [2048]	4	0
+Fmt4=uint8 [2]	4	0
+Fmt5=uint8 [32]	4	0
+Fmt6=uint8 [3]	4	0
+Fmt7=uint8 [6]	3	0
+[watch_formats]
+Fmt0={W}1:i	4	0
+Fmt1={W}1:pBuf	4	0
+Fmt2={W}1:pgBuf	4	0
+Fmt3={W}1:pin	4	0
+Fmt4={W}1:port	4	0
+[Breakpoints]
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\app\ubl_exec.c}.478.11" 1 0 0 0 "" 0 ""
+Count=1
+[ChipconEmu]
+Stop timers on halt=0
+Leave target running=1
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[Aliases]
+Count=0
+SuppressDialog=0
