@@ -117,6 +117,7 @@ __low_level_init(void)
 
     if (UBL_RC_VALID)
     {
+  //  HalFlashRead(1, 0, pgBuf, 2048);
       ublJump();
     }
   }
@@ -151,11 +152,14 @@ void main(void)
   
   HAL_DMA_SET_ADDR_DESC0(&dmaCh0);
   
-  P0DIR |= (1<<5);   
-  P0SEL &= ~(1<<5);
+  P1SEL = P1SEL & 0xFC;
+  P1DIR = P1DIR & 0xFC;
+  P1DIR = P1DIR |  0x1;      
+  P1_0 = 1;
+
   P0DIR |=  (1<<6);  
   P0SEL &= ~(1<<6);
-  P0  &= (1<<5);
+  P0_6 = 0;
   
   ublInit();
   ublExec();

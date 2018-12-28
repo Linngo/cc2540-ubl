@@ -75,7 +75,7 @@ void usbsuspEnter(void)
     // Disable USB clock (PLL) before entering PM1
     HAL_USB_PLL_DISABLE();
 
-    HAL_LED_CLR_1();
+ //   HAL_LED_CLR_1();
 
     do {
         // Enter PM1, in prescribed manner as explained in CC253x User's Guide

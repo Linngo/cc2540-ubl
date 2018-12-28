@@ -28,7 +28,7 @@ C:\BLE-CC254x-1.4.2.2.200_200\Projects\ble\util\UBL\soc_8051\usb_msd\hal\usb\lib
 -DHAL_SB_BOOT_CODE=1
 -DUBL_BUILD=1
 -DUBL_SECURE=1
--DxUBL_SIGNER=1
+-DUBL_SIGNER=1
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0

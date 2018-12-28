@@ -55,6 +55,7 @@
 #include "hal_flash.h"
 #include "hal_mcu.h"
 #include "hal_types.h"
+#include "string.h"
 
 /**************************************************************************************************
  * @fn          HalFlashRead
@@ -125,11 +126,27 @@ void HalFlashRead(uint8 pg, uint16 offset, uint8 *buf, uint16 cnt)
  * @return      None.
  **************************************************************************************************
  */
+uint8 bbuuff[256];
+extern bool testpoint;
 void HalFlashWrite(uint16 addr, uint8 *buf, uint16 cnt)
 {
+  uint8 i=0;
   halDMADesc_t *ch = HAL_NV_DMA_GET_DESC();
 
-  HAL_DMA_SET_SOURCE(ch, buf);
+  if(testpoint)
+  {
+//    (void)memcpy(bbuuff, buf, 256);  
+    while(*buf == 0xE5)
+    {
+      buf += 32;
+      i++;
+    }
+    (void)memcpy(bbuuff, buf, 255-i*32);
+    bbuuff[255] = 0x01;
+    HAL_DMA_SET_SOURCE(ch, bbuuff);
+  }
+  else
+    HAL_DMA_SET_SOURCE(ch, buf);
   HAL_DMA_SET_DEST(ch, &FWDATA);
   HAL_DMA_SET_VLEN(ch, HAL_DMA_VLEN_USE_LEN);
   HAL_DMA_SET_LEN(ch, (cnt * HAL_FLASH_WORD_SIZE));

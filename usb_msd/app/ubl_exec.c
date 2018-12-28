@@ -201,6 +201,7 @@ static void vddWait(void);
  *
  * @return      TRUE or FALSE whether the AES signature of the image in flash is valid.
  */
+bool testpoint=0;
 uint8 ublAesAuth(void)
 {
 #if UBL_SECURE
@@ -292,6 +293,7 @@ uint8 ublAesAuth(void)
   ublMD.crcRC = UBL_CRC_ERASED;  // Do not write zero to the same bits more than twice.
   HalFlashWrite(UBL_META_DATA_ADDR_WR, (uint8 *)&ublMD.crcRC, 1);
 
+  testpoint = 1;
   return TRUE;
 }
 
@@ -445,7 +447,7 @@ void ublExec(void)
   while (1)
   {
     // No continual waits for VDD_MIN_NV - Vdd is assumed to be stable on a USB-powered device.
-    //vddWait();
+    vddWait();
 
     if (usb_msd_poll() == TRUE)  // TRUE == "Eject".
     {
@@ -454,14 +456,14 @@ void ublExec(void)
 
     if ((ublMD.dlyJmp != 0))//(UBL_RC_VALID||(ublMD.crcShdw!=0xFFFF)) && 
     {
-#if defined UBL_GPIO_USE
+/*#if defined UBL_GPIO_USE
       if (!GET_BIT(ublMD.cfgDiscs+0, gpioUseNot) &&
           (GET_BIT(ublMD.cfgDiscs+0, gpioPolarity) == ((*pForcePort & BV(forcePin)) != 0)))
       {
         ublMD.crcShdw = UBL_CRC_ZEROED;
       }
       else
-#endif
+#endif*/
       {
         uint32 stDelta;
         UBL_READ_ST(stDelta);  // Get the free-running count of 30.5 usec timer ticks.
@@ -535,10 +537,10 @@ void ublInit(void)
       }
     }
   }
-    if(ublMD.dlyJmp == 0||ublMD.dlyJmp == 0xFFFF)
+    if(ublMD.dlyJmp == 0x00||ublMD.dlyJmp == 0xFFFF)
       ublMD.dlyJmp = 60000;
   
-    stDelay = (ublMD.dlyJmp * 2 * 4096UL) / 125;
+    stDelay = 3*(ublMD.dlyJmp * 4096UL) / 125;
     UBL_READ_ST(stStart);
 
   vddWait();  // Stricter wait then in main, looking for safe Vdd for writing flash.
@@ -562,8 +564,9 @@ void ublInit(void)
   }
 #endif
 #endif
-
+  
   usb_msd_init();  // Initialize USB-MSD as late as possible for time limits after enabling D+ line.
+  ublMassErase(1);
 }
 
 /**************************************************************************************************

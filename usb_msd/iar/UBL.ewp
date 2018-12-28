@@ -305,7 +305,7 @@
           <state>HAL_SB_BOOT_CODE</state>
           <state>UBL_BUILD</state>
           <state>UBL_SECURE</state>
-          <state>xUBL_SIGNER</state>
+          <state>UBL_SIGNER</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
